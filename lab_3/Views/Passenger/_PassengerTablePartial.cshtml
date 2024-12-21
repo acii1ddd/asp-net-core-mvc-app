@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PassengerViewModel>
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th>Имя пассажира</th>
+            <th>Фамилия пассажира</th>
+            <th>Телефон</th>
+            <th>Паспортные данные</th>
+            <th>Действие</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* не пустой *@
+        @if(Model != null && Model.Any())
+        {
+            @foreach(var pass in Model)
+            {
+                <tr>
+                    <td>@pass.FirstName</td>
+                    <td>@pass.SecondName</td>
+                    <td>@pass.Phone</td>
+                    <td>@pass.PassportData</td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Passenger" asp-action="Delete" asp-route-id="@pass.Id">Удалить</a>
+                        <a class="btn btn-primary" asp-controller="Passenger" asp-action="Edit" asp-route-id="@pass.Id">Редактировать</a> @* название параметра (id), значение (passenger.Id) *@
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">Пассажиры не найдены</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<lab_3.Models.TicketViewModel>
+
+@{
+    ViewData["Title"] = "Tickets";
+    Layout = "_Layout";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div class="container">
+    <h1>Билеты</h1>
+    @if (User.IsInRole("Manager"))
+    {
+        <div class="mt-3">
+            <a class="btn btn-info" asp-controller="Ticket" asp-action="Create">Добавить билет</a>
+        </div>
+    }
+   
+    <!-- поле ввода для поиска -->
+    <div id="searchSection" class="mt-3">
+        <div class="form-inline">
+            @* name - параметры при отправке *@
+            <label>Поиск билетов</label>
+            <input id="source" type="text" name="source" class="form-control" placeholder="Введите пункт отправления" required/>
+            <input id="destination" type="text" name="destination" class="form-control mt-2" placeholder="Введите пункт назначения" required/>
+            @* сам билдит путь /Ticket/SearchMany *@
+            <button id="searchButton" type="submit" class="btn btn-primary mt-2 mb-2">Искать</button>
+         </div>
+    </div>
+
+    <div class="table-container mt-40">
+        <table class="table table-light" id="ticketTable">
+            <thead>
+                <tr>
+                    <th>Пункт отправления</th>
+                    <th>Пункт назначения</th>
+                    <th>Время отправления</th>
+                    <th>Время прибытия</th>
+                    <th>Номер вагона</th>
+                    <th>Номер места</th>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <th>Действие</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if(Model != null && Model.Any())
+                {
+                    @foreach (var ticket in Model)
+                    {
+                        <tr>
+                            <td>@ticket.Source</td>
+                            <td>@ticket.Destination</td>
+                            <td>@ticket.StartTime</td>
+                            <td>@ticket.ArrivalTime</td>
+                            <td>@ticket.WagonNumber</td>
+                            <td>@ticket.PlaceNumber</td>
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <td>
+                                    <a class="btn btn-secondary" asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id">Удалить</a>
+                                    <a class="btn btn-secondary" asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id">Редактировать</a> @* название параметра (id), значение (passenger.Id) *@
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">Билеты не найдены</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/searchTickets.js"></script>
+}

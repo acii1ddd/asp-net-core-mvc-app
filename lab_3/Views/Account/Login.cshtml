@@ -1,0 +1,33 @@
+﻿@model lab_3.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false, "Иправьте ошибки:")
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<h2>Вход</h2>
+
+<form asp-action="Login" method="post">
+    <div class="form-group">
+        <label asp-for="UserName" class="mt-2">Логин</label>
+        <input asp-for="UserName" class="form-control" placeholder="Введите логин" required/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="mt-2">Пароль</label>
+        <input asp-for="Password" class="form-control" placeholder="Введите пароль" required/>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Войти</button>
+</form>

@@ -1,0 +1,42 @@
+﻿@model lab_3.Models.RegisterModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false, "Иправьте ошибки:")
+    </div>
+}
+
+<h2>Регистрация</h2>
+
+<form asp-action="Register" method="post">
+    <div class="form-group">
+        <label asp-for="UserName" class="mt-2">Логин</label>
+        <input asp-for="UserName" class="form-control" placeholder="Введите логин" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Firstname" class="mt-2">Имя</label>
+        <input asp-for="Firstname" class="form-control" placeholder="Введите имя" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Lastname" class="mt-2">Фамилия</label>
+        <input asp-for="Lastname" class="form-control" placeholder="Введите фамилию" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="mt-2">Номер телефона</label>
+        <input asp-for="PhoneNumber" class="form-control" placeholder="Введите номер телефона" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="mt-2">Пароль</label>
+        <input asp-for="Password" class="form-control" placeholder="Введите пароль" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="PasswordConfirm" class="mt-2">Пароль</label>
+        <input asp-for="PasswordConfirm" class="form-control" placeholder="Подтвердите пароль" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Зарегистрироваться</button>
+</form>

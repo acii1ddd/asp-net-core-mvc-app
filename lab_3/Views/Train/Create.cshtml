@@ -1,0 +1,30 @@
+﻿@model lab_3.Models.TrainViewModel
+
+<h2>Добавление поезда</h2>
+
+@if (!ViewData.ModelState.IsValid) // валидация на bll слое
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false, "Иправьте ошибки в заполнении:")
+    </div>
+}
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        @* // для автоматического связывания данных*@
+        <label asp-for="Route" class="mt-2">Введите маршрут</label>
+        <input asp-for="Route" class="form-control" />
+        <span asp-validation-for="Route" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Capacity" class="mt-2">Вместимость </label>
+        <input asp-for="Capacity" class="form-control" />
+        <span asp-validation-for="Capacity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WagonCount" class="mt-2">Количество вагонов</label>
+        <input asp-for="WagonCount" class="form-control" />
+        <span asp-validation-for="WagonCount" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+</form>

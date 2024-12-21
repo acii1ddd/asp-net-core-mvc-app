@@ -1,0 +1,62 @@
+﻿@model lab_3.Models.UserViewModelToCreate
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@* Отображение всех ошибок div блоком *@
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false, "Иправьте ошибки в заполнении:")
+    </div>
+}
+
+<h2>Добавление пользователя</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="UserName" class="mt-2">Логин</label>
+        <input asp-for="UserName" class="form-control" placeholder="Введите логин" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+        @*Тег-хелпер asp-validation-for проверяет, есть ли ошибка для указанного свойства
+        (UserName) в ModelState. Если ошибка есть, она будет автоматически отображена в
+        этом <span> элементе*@
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="mt-2">Имя</label>
+        <input asp-for="FirstName" class="form-control" placeholder="Введите имя"  />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="mt-2">Фамилия</label>
+        <input asp-for="LastName" class="form-control" placeholder="Введите фамилию" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PhoneNumber" class="mt-2">Номер телефона</label>
+        <input asp-for="PhoneNumber" class="form-control" placeholder="Введите номер телефона"  />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Role" class="mt-2">Роль пользователя</label>
+        <!-- выпадающий список для выбора роли -->
+        @Html.DropDownListFor(
+                 model => model.Role,
+                 new SelectList(ViewData["Roles"] as List<string>),
+                 new { @class = "form-control" })
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="mt-2">Пароль</label>
+        <input asp-for="Password" class="form-control" placeholder="Введите пароль" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ConfirmPassword" class="mt-2">Пароль</label>
+        <input asp-for="ConfirmPassword" class="form-control" placeholder="Подтвердите пароль" />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+   
+    <button type="submit" class="btn btn-primary mt-3">Создать</button>
+</form>

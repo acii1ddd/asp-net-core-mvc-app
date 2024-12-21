@@ -1,0 +1,45 @@
+﻿@model lab_3.Models.TicketViewModel
+
+<h2>Добавление билета</h2>
+
+@if (!ViewData.ModelState.IsValid) // валидация на bll слое
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary(false, "Иправьте ошибки в заполнении:")
+    </div>
+}
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        @* // для автоматического связывания данных*@
+        <label asp-for="Source" class="mt-2">Пункт отправления</label>
+        <input asp-for="Source" class="form-control" />
+        <span asp-validation-for="Source" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Destination" class="mt-2">Пункт назначения</label>
+        <input asp-for="Destination" class="form-control" />
+        <span asp-validation-for="Destination" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="StartTime" class="mt-2">Время отправления</label>
+        <input asp-for="StartTime" class="form-control" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ArrivalTime" class="mt-2">Время прибывания</label>
+        <input asp-for="ArrivalTime" class="form-control" />
+        <span asp-validation-for="ArrivalTime" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="WagonNumber" class="mt-2">Номер вагона</label>
+        <input asp-for="WagonNumber" class="form-control" />
+        <span asp-validation-for="WagonNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PlaceNumber" class="mt-2">Номер места</label>
+        <input asp-for="PlaceNumber" class="form-control" />
+        <span asp-validation-for="PlaceNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+</form>
